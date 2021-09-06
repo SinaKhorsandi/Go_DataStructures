@@ -17,7 +17,7 @@ type DataList struct {
 
 func NewHash() *HashTable {
 	return &HashTable{
-		Data: [arrayLength]*linkedlist.LinkedList{},
+		[arrayLength]*linkedlist.LinkedList{},
 	}
 }
 
@@ -25,7 +25,7 @@ func hashFunc(k string) int {
 	return len(k) % 10
 }
 
-func (h *HashTable) Add(k string, v interface{}) *HashTable {
+func (h *HashTable) Set(k string, v interface{}) *HashTable {
 	index := hashFunc(k)
 
 	if h.Data[index] == nil {
@@ -60,12 +60,15 @@ func (h *HashTable) Get(k string) (v interface{}) {
 	}
 		node:=h.Data[index].Head
 		for  {
+			if node != nil {
+
 			d:=node.Data.(DataList)
 			if d.Key == k {
-				return v
+				return d.value
 			}else {
 				return ""
 			}
 			node=node.Next
 		}
+}
 }
