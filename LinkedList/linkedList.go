@@ -21,7 +21,6 @@ func New() *LinkedList {
 	}
 }
 
-// Add Function : Add a new node to the end of the Linked List
 func (ll *LinkedList) Add(d interface{}) *LinkedList {
 	NextNode:=&Node{
 		Next: nil,
@@ -38,7 +37,6 @@ func (ll *LinkedList) Add(d interface{}) *LinkedList {
 	return ll
 }
 
-// DeleteNode : Deletes node which has a specific value
 func (ll *LinkedList) DeleteNode(d interface{}) *LinkedList {
 	var node = ll.First
 	if node.Data == d {
@@ -60,7 +58,6 @@ func (ll *LinkedList) DeleteNode(d interface{}) *LinkedList {
 }
 
 
-// IsEmpty : check if there are any elements in the list
 func (ll *LinkedList) IsEmpty() bool {
 	if ll.First == nil {
 		return true
