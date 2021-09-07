@@ -1,5 +1,7 @@
 package LinkedList
 
+import "fmt"
+
 type LinkedList struct {
 	First *Node
 	Last  *Node
@@ -26,12 +28,10 @@ func (ll *LinkedList) Add(d interface{}) *LinkedList {
 		Next: nil,
 		Data: d,
 	}
-	if ll.First == nil {
+	if ll.First.Data == nil {
 		ll.First = NextNode
-		return ll
 	}else {
 		ll.Last.Next=NextNode
-		return ll
 	}
 	ll.Last = NextNode
 	return ll
@@ -44,12 +44,13 @@ func (ll *LinkedList) DeleteNode(d interface{}) *LinkedList {
 		return ll
 	}
 	for {
-		if node.Next == d {
+		if node.Next.Data == d {
 			if node.Next.Next != nil {
 				node.Next = node.Next.Next
 				break
 			} else {
 				node.Next = nil
+				break
 			}
 		}
 		node = node.Next
@@ -63,4 +64,15 @@ func (ll *LinkedList) IsEmpty() bool {
 		return true
 	}
 	return false
+}
+
+func (ll *LinkedList) PrintAll()  {
+	var node = ll.First
+	for  {
+		fmt.Println(node.Data)
+		if node.Next == nil {
+			return
+		}
+		node = node.Next
+	}
 }
