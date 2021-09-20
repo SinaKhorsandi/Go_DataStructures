@@ -1,4 +1,4 @@
 # Data_Structures in Go.
 
-. Linked_List
-. HashTable
+- **Linked_List**
+- **HashTable**
