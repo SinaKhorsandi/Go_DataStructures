@@ -2,6 +2,7 @@ package hashTable
 
 import (
 	"github.com/dorin131/go-data-structures/linkedlist"
+	"math"
 )
 
 const arrayLength = 10
@@ -21,12 +22,19 @@ func NewHash() *HashTable {
 	}
 }
 
-func hashFunc(k string) int {
-	return len(k) % 10
+func hashFunc(s string) int {
+	h := 0
+	for pos, char := range s {
+		h += int(char) * int(math.Pow(31, float64(len(s)-pos+1)))
+	}
+	return h
 }
 
+func index(hash int) int {
+	return hash % arrayLength
+}
 func (h *HashTable) Set(k string, v interface{}) *HashTable {
-	index := hashFunc(k)
+	index := index(hashFunc(k))
 
 	if h.Data[index] == nil {
 		h.Data[index] = linkedlist.New()
@@ -53,22 +61,20 @@ func (h *HashTable) Set(k string, v interface{}) *HashTable {
 }
 
 func (h *HashTable) Get(k string) (v interface{}) {
-	index := hashFunc(k)
-
+	index := index(hashFunc(k))
 	if h.Data[index] == nil {
 		return ""
 	}
-		node:=h.Data[index].Head
-		for  {
-			if node != nil {
-
-			d:=node.Data.(DataList)
+	node := h.Data[index].Head
+	for {
+		if node != nil {
+			d := node.Data.(DataList)
 			if d.Key == k {
 				return d.value
-			}else {
+			} else {
 				return ""
 			}
-			node=node.Next
+			node = node.Next
 		}
-}
+	}
 }
